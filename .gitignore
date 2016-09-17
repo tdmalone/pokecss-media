@@ -1,0 +1,16 @@
+# Files
+*.log
+.sass-cache
+*.map
+.DS_Store
+Icon
+.Trashes
+*.sqlite
+
+# Folders
+.idea
+node_modules
+bower_components
+testing
+*_tmp
+tmp
