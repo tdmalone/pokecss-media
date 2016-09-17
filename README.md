@@ -1,6 +1,6 @@
 # pokemedia
 
-Compilation of images for all 6th+ Geneneration Pokémon 3D sprites, icons and items.
+Compilation of images of all 6th+ Geneneration Pokémon 3D sprites, icons and items.
 
 The aim of this project is to compile a set of graphics from the main series games,
 containing:
@@ -18,6 +18,7 @@ The naming if the sprites is consistent with the Pokémon codenames of the
 
 
 **IMPORTANT**:
+
 1. All sprites prior to Gen 6 that are not based on 3D models,
 official artworks, or sprites from spin-off games won't be included in this project.
 Please don't ask to add them.
