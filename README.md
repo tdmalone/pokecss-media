@@ -24,13 +24,12 @@ official artworks, or sprites from spin-off games won't be included in this proj
 Please don't ask to add them.
 2. Do not hotlink the images from your website to this Github repository, otherwise
 the possible high bandwidth can cause the elimination of this repository.
+3. When using the sprites in your website, you may want to consider using the non-animated
+ones, because their size are considerably small: all of them are just 6MB compared to the 200MB
+of the animated ones.
 
 
 ## TO-DO
-
-- [ ] Add not-animated 3D sprites
-- [ ] Add missing icons-right
-- [ ] Add all other missing 3D sprites (see above)
 
 ### Missing 3D sprites
 
