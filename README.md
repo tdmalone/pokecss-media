@@ -31,6 +31,8 @@ of the animated ones.
 
 ## TO-DO
 
+- [ ] Complete all items, and make the naming work with `pokedata` DB.
+
 ### Missing 3D sprites
 
 - [ ] Cosplay Pikachu forms (all)
@@ -54,13 +56,14 @@ All sprites are compiled from these websites.
 Thanks to all of them for being a good resource.
 
 
-## Disclaimer
+## License
 
 This software is copyrighted and licensed under the 
-[CC0-1.0 license](https://github.com/metaunicorn/pokemedia/LICENSE). See the file
-entitled LICENSE for full copyright and license text.
+[MIT license](https://github.com/metaunicorn/pokeimg/LICENSE).
 
-This software comes bundled with data and sprites extracted from the
+### Disclaimer
+
+This software comes bundled with data and graphics extracted from the
 Pokémon series of video games. Some terminology from the Pokémon franchise is
 also necessarily used within the software itself. This is all the intellectual
 property of Nintendo, Creatures, inc., and GAME FREAK, inc. and is protected by
@@ -74,4 +77,4 @@ This software is not affiliated in any way with Nintendo,
 Pokémon or any other game company.
 
 A complete revision history of this software is available from
-https://github.com/metaunicorn/pokemedia
+https://github.com/metaunicorn/pokeimg
