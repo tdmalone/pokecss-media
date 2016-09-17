@@ -1,4 +1,4 @@
-# pokemedia
+# pokeimg
 
 Compilation of images of all 6th+ Geneneration Pokémon 3D sprites, icons and items.
 
