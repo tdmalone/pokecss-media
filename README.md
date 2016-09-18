@@ -31,15 +31,13 @@ of the animated ones.
 
 ## TO-DO
 
-- [ ] Complete all items, and make the naming work with `pokedata` DB.
-
 ### Missing 3D sprites
 
-- [ ] Cosplay Pikachu forms (all)
-- [ ] Furfrou haircut forms (all)
-- [ ] Shiny Unown forms (front and back)
-- [ ] Vivillon Pokeball and Fancy forms (back and back shiny)
-- [ ] Unfezant (back female, back female shiny)
+- Cosplay Pikachu forms (all)
+- Furfrou haircut forms (all)
+- Shiny Unown forms (front and back)
+- Vivillon Pokeball and Fancy forms (back and back shiny)
+- Unfezant (back female, back female shiny)
 
 Any help to gather these missing animated sprites will be welcome.
 
