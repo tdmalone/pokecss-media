@@ -21,63 +21,27 @@ $folders            = [
     'pokemon/back',
     'pokemon/back-shiny',
     'pokemon/icons-left',
-    'pokemon/icons-right',
-    'items',
+    'pokemon/icons-right'
 ];
 $currentFolder      = (isset($_GET['f']) && in_array($_GET['f'], $folders)) ? $_GET['f'] : $folders[0];
 $notFoundOnly       = (isset($_GET['nf']) && ($_GET['nf'] == '1'));
-$copyIfNotFound     = (isset($_GET['cp']) && ($_GET['cp'] == '1'));
+$removeDuplicates   = (isset($_GET['rm']) && ($_GET['rm'] == '1'));
 $currentFolder      = str_replace('/', DIRECTORY_SEPARATOR, $currentFolder);
 $folderPath         = $basePicPath . DIRECTORY_SEPARATOR . $currentFolder;
 $folderUrl          = $basePicUrl . URL_SEPARATOR . $currentFolder;
 $currentFolderClass = explode(DIRECTORY_SEPARATOR, $currentFolder); // remove parent dirs
 $currentFolderClass = array_pop($currentFolderClass);
 
-if ($currentFolder == 'items') {
-    $data = include $basePath . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'get_items_list.php';
-} else {
-    $data = include $basePath . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'get_pokemon_list.php';
-}
+$data = include $basePath . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'get_pokemon_list.php';
 
 ###############
 // HELPERS:
 
-
-$copyFromMain = function ($name, $ext = '.gif') use ($currentFolder, $folderPath, $data) {
-    if ($currentFolder == 'items') {
-        return;
-    }
-    $picFilePath = $folderPath . DIRECTORY_SEPARATOR . $name . $ext;
-    if ( ! file_exists($picFilePath)) {
-        $mainName = null;
-        foreach ($data as $pkm) {
-            if ( ! isset($pkm['species'])) {
-                break;
-            }
-            if ($pkm['species'] == $name) {
-                $mainName = $pkm['default_form'];
-            }
-        }
-        if ( ! $mainName) {
-            return;
-        }
-        $mainPicFilePath = $folderPath . DIRECTORY_SEPARATOR . $mainName . $ext;
-        if (file_exists($mainPicFilePath)) {
-            echo $mainPicFilePath . '<br>';
-            copy($mainPicFilePath, $picFilePath);
-        }
-    }
-};
-
 $handleRow = function ($name, $ext = '.gif')
-use ($fallbackPicUrl, $folderPath, $folderUrl, $notFoundOnly, $copyIfNotFound, $copyFromMain)
+use ($fallbackPicUrl, $folderPath, $folderUrl, $notFoundOnly)
 
 {
 $picFilePath   = $folderPath . DIRECTORY_SEPARATOR . $name . $ext;
-$picFileExists = file_exists($picFilePath);
-if ( ! $picFileExists && $copyIfNotFound) {
-    $copyFromMain($name, $ext);
-}
 $picFileExists = file_exists($picFilePath);
 $picFileUrl    = $picFileExists ?
     ($folderUrl . URL_SEPARATOR . $name . $ext) : $fallbackPicUrl;
@@ -164,13 +128,17 @@ if ($picFileExists && $notFoundOnly) {
 </head>
 <body>
 <div class="main">
-    <h1>Pokevisor - Pokemon Sprites Viewer for pokeimg</h1>
+    <h1>Pokevisor - Pokemon Sprites Duplicate Finder for pokeimg</h1>
     <p>
         This tool is for development purposes only and is not meant for being published on a website.
         <br>
-        The main purpose is to quickly identify missing sprites, fixing names, etc.
+        This tool finds the duplicated sprites in case the default form and the species name are different,
+        for example: unown and unown-a as default form may share the same sprite, so it is not necessary to
+        duplicate the files. This tool helps identifying those cases.
+        <br>
+        <a href="viewer.php">Go to Viewer tool</a>
     </p>
-    <form action="index.php" method="GET" class="form" style="max-width: 500px;">
+    <form action="dfinder.php" method="GET" class="form" style="max-width: 500px;">
         <div class="form-group">
             <label>Folder: </label>
             <select name="f" class="form-control">
@@ -192,8 +160,7 @@ if ($picFileExists && $notFoundOnly) {
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="cp" value="1"> Copy from default form if not found (only for Pokemon
-                sprites)
+                <input type="checkbox" name="nf" value="1"> Remove found duplicated files
             </label>
         </div>
         <button type="submit" class="btn btn-primary">View</button>
@@ -202,26 +169,48 @@ if ($picFileExists && $notFoundOnly) {
         <h2>Folder: <?= $currentFolder ?></h2>
         <?php
 
-        if ($currentFolder == 'items') {
-            foreach ($data as $item) {
-                $handleRow($item['name'], '.png');
-            }
-        } elseif (in_array($currentFolder, ['pokemon/icons-left', 'pokemon/icons-right'])) {
+        if (in_array($currentFolder, ['pokemon/icons-left', 'pokemon/icons-right'])) {
             foreach ($data as $pokemon) {
-                $id    = $pokemon['id'];
-                $alias = sprintf('%04d', $id);
-                $handleRow($alias, '.png');
-                foreach ($pokemon['forms'] as $form) {
-                    $formPart = explode('-', $form, 2);
-                    $formPart = array_pop($formPart);
-                    $handleRow($alias . '-' . $formPart, '.png');
+                if ($pokemon['default_form'] != $pokemon['species']) {
+                    $alias     = sprintf('%04d', $pokemon['id']);
+                    $formParts = explode('-', $pokemon['default_form'], 2);
+                    $formAlias = $alias . '-' . array_pop($formParts);
+
+                    $speciesFile = $folderPath . DIRECTORY_SEPARATOR . $alias . '.png';
+                    $formFile    = $folderPath . DIRECTORY_SEPARATOR . $formAlias . '.png';
+
+                    if (
+                        file_exists($speciesFile)
+                        && file_exists($formFile)
+                        && (sha1_file($speciesFile) == sha1_file($formFile))
+                    ) {
+                        // Remove the related form file
+                        if($removeDuplicates){
+                            unlink($formFile);
+                        }
+                        $handleRow($alias, '.png');
+                        $handleRow($pokemon['default_form']);
+                    }
                 }
             }
         } else {
             foreach ($data as $pokemon) {
-                $handleRow($pokemon['species']);
-                foreach ($pokemon['forms'] as $form) {
-                    $handleRow($form);
+                if ($pokemon['default_form'] != $pokemon['species']) {
+                    $speciesFile = $folderPath . DIRECTORY_SEPARATOR . $pokemon['species'] . '.gif';
+                    $formFile    = $folderPath . DIRECTORY_SEPARATOR . $pokemon['default_form'] . '.gif';
+
+                    if (
+                        file_exists($speciesFile)
+                        && file_exists($formFile)
+                        && (sha1_file($speciesFile) == sha1_file($formFile))
+                    ) {
+                        // Remove the related form file
+                        if($removeDuplicates){
+                            unlink($formFile);
+                        }
+                        $handleRow($pokemon['species']);
+                        $handleRow($pokemon['default_form']);
+                    }
                 }
             }
         }
