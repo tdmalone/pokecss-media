@@ -209,7 +209,7 @@ if ($picFileExists && $notFoundOnly) {
         } elseif (in_array($currentFolder, ['pokemon/icons-left', 'pokemon/icons-right'])) {
             foreach ($data as $pokemon) {
                 $id    = $pokemon['id'];
-                $alias = sprintf('%03d', $id);
+                $alias = sprintf('%04d', $id);
                 $handleRow($alias, '.png');
                 foreach ($pokemon['forms'] as $form) {
                     $formPart = explode('-', $form, 2);
