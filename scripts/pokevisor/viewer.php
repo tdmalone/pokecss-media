@@ -205,6 +205,19 @@ if ($picFileExists && $notFoundOnly) {
 
         if ($currentFolder == 'items') {
             foreach ($data as $item) {
+                $name = $item['name'];
+                if(preg_match('/^data\-card.*/', $name)){
+                    $handleRow('none', '.png', $item['name']);
+                    continue;
+                }
+                if(preg_match('/^tm[\d]{1,3}$/', $name)){
+                    $handleRow('tm-normal', '.png', $item['name']);
+                    continue;
+                }
+                if(preg_match('/^hm[\d]{1,3}$/', $name)){
+                    $handleRow('hm-normal', '.png', $item['name']);
+                    continue;
+                }
                 $handleRow($item['name'], '.png');
             }
         } elseif (in_array($currentFolder, ['pokemon/icons-left', 'pokemon/icons-right'])) {

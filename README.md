@@ -46,19 +46,25 @@ Any help to gather these missing animated sprites will be welcome.
 ## Credits
 All sprites are compiled from these websites.
 
-* pkparaiso.com
-* veekun
-* pokestadium.com
-* pokemonshowdown.com
-* smogon.com
-* serebii.net
+* pkparaiso.com, for the 3D animated sprites
+* [veekun/pokedex-media](https://github.com/veekun/pokedex-media), for some sprites
+* pokestadium.com, for some missing 3D animated sprites
+* pokemonshowdown.com, for some missing 3D animated sprites
+* smogon.com, for the move category glyphs (that have been redone)
+* [msikma/pokesprite](https://github.com/msikma/pokesprite),
+for most of the missing items and for some nice ideas
+* serebii.net, for some missing items
 
 Thanks to all of them for being a good resource.
 
 
 ## License
 
-This software is copyrighted and licensed under the 
+The graphics from the games and their names are
+&copy; Nintendo/Creatures Inc./GAME FREAK Inc.
+
+Everything else, including all code and custom graphics (glyphs),
+is copyrighted and licensed under the 
 [MIT license](https://github.com/metaunicorn/pokeimg/LICENSE).
 
 ### Disclaimer
