@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This script extracts the first frame of the GIFs from the src folder to the destination folder
+# This script extracts the given frame of the given GIF to the destination file
 # It requires ImageMagick
 
 img=$1 # src image
@@ -7,8 +7,8 @@ dest=$2 # destination image
 frame=$3 # GIF frame
 _TRIM=1 # Trim empty space of each icon and the final file?
 
-if [ -z "$2" ]; then
-    echo "Missing destination image file. Aborting."
+if [ -z "$1" ] || [ -z "$2" ] ; then
+    echo "Missing required parameters. Aborting."
     exit 1
 fi
 
@@ -19,7 +19,7 @@ fi
 frame_img="${img}[${frame}]"
 
 echo "Converting animated GIF to static ..."
-echo "Processing ${img}[${frame}]..."
+echo "Saving ${img}[${frame}] into ${dest}..."
 
 convert ${frame_img} -coalesce ${dest} || exit 1
 if [ ${_TRIM} -eq 1 ]
