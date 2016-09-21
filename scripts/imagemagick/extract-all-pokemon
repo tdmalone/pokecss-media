@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-echo "WARNING! This process will take a couple of hours, please be patient..."
-./scripts/imagemagick/bulk-extract-all pokemon/ani-front pokemon/ani-front-extracted
-./scripts/imagemagick/bulk-extract-all pokemon/ani-front-shiny pokemon/ani-front-shiny-extracted
-./scripts/imagemagick/bulk-extract-all pokemon/ani-back pokemon/ani-back-extracted
-./scripts/imagemagick/bulk-extract-all pokemon/ani-back-shiny pokemon/ani-back-shiny-extracted

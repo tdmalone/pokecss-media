@@ -10,10 +10,10 @@ containing:
 * Important metagame **symbols** and misc.
 
 This project also contains a set of **glyphs** for generating a Pokémon icon font, for
- the [metaunicorn/pokecss](https://github.com/metaunicorn/pokecss) project.
+ the [PokeCSS](https://github.com/metaunicorn/pokecss) project.
 
 The naming if the sprites is consistent with the Pokémon codenames of the
- [metaunicorn/pokedata](https://github.com/metaunicorn/pokedata) project database, so they are
+ [PokeData](https://github.com/metaunicorn/pokedata) project database, so they are
  easily referentiable.
 
 
