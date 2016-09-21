@@ -170,47 +170,26 @@ if ($picFileExists && $notFoundOnly) {
         <?php
 
         if (in_array($currentFolder, ['pokemon/icons-left', 'pokemon/icons-right'])) {
-            foreach ($data as $pokemon) {
-                if ($pokemon['default_form'] != $pokemon['species']) {
-                    $alias     = sprintf('%04d', $pokemon['id']);
-                    $formParts = explode('-', $pokemon['default_form'], 2);
-                    $formAlias = $alias . '-' . array_pop($formParts);
-
-                    $speciesFile = $folderPath . DIRECTORY_SEPARATOR . $alias . '.png';
-                    $formFile    = $folderPath . DIRECTORY_SEPARATOR . $formAlias . '.png';
-
-                    if (
-                        file_exists($speciesFile)
-                        && file_exists($formFile)
-                        && (sha1_file($speciesFile) == sha1_file($formFile))
-                    ) {
-                        // Remove the related form file
-                        if($removeDuplicates){
-                            unlink($formFile);
-                        }
-                        $handleRow($alias, '.png');
-                        $handleRow($pokemon['default_form']);
-                    }
-                }
-            }
+            $ext = '.png';
         } else {
-            foreach ($data as $pokemon) {
-                if ($pokemon['default_form'] != $pokemon['species']) {
-                    $speciesFile = $folderPath . DIRECTORY_SEPARATOR . $pokemon['species'] . '.gif';
-                    $formFile    = $folderPath . DIRECTORY_SEPARATOR . $pokemon['default_form'] . '.gif';
+            $ext = '.gif';
+        }
+        foreach ($data as $pokemon) {
+            if ($pokemon['default_form'] != $pokemon['species']) {
+                $speciesFile = $folderPath . DIRECTORY_SEPARATOR . $pokemon['species'] . $ext;
+                $formFile    = $folderPath . DIRECTORY_SEPARATOR . $pokemon['default_form'] . $ext;
 
-                    if (
-                        file_exists($speciesFile)
-                        && file_exists($formFile)
-                        && (sha1_file($speciesFile) == sha1_file($formFile))
-                    ) {
-                        // Remove the related form file
-                        if($removeDuplicates){
-                            unlink($formFile);
-                        }
-                        $handleRow($pokemon['species']);
-                        $handleRow($pokemon['default_form']);
+                if (
+                    file_exists($speciesFile)
+                    && file_exists($formFile)
+                    && (sha1_file($speciesFile) == sha1_file($formFile))
+                ) {
+                    // Remove the related form file
+                    if ($removeDuplicates) {
+                        unlink($formFile);
                     }
+                    $handleRow($pokemon['species'], $ext);
+                    $handleRow($pokemon['default_form'], $ext);
                 }
             }
         }

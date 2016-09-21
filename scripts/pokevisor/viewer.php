@@ -68,10 +68,19 @@ $copyFromMain = function ($name, $ext = '.gif') use ($currentFolder, $folderPath
     }
 };
 
-$handleRow = function ($name, $ext = '.gif', $customTitle = null)
-use ($fallbackPicUrl, $folderPath, $folderUrl, $notFoundOnly, $copyIfNotFound, $copyFromMain)
-
+$handleRow = function ($name, $ext = null, $customTitle = null)
+use (
+    &$handleRow, $currentFolder, $fallbackPicUrl,
+    $folderPath, $folderUrl, $notFoundOnly, $copyIfNotFound, $copyFromMain
+)
 {
+if ( ! $ext) {
+    if (in_array($currentFolder, ['pokemon/icons-left', 'pokemon/icons-right'])) {
+        $ext = '.png';
+    } else {
+        $ext = '.gif';
+    }
+}
 $picFilePath   = $folderPath . DIRECTORY_SEPARATOR . $name . $ext;
 $picFileExists = file_exists($picFilePath);
 if ( ! $picFileExists && $copyIfNotFound) {
@@ -90,6 +99,11 @@ if ($picFileExists && $notFoundOnly) {
     <img src="<?= $picFileUrl ?>"/>
 </div>
 <?php
+
+if(
+   file_exists($picFilePath  = $folderPath . DIRECTORY_SEPARATOR . $name.'-female' . $ext)){
+    $handleRow($name.'-female', $ext);
+}
 };
 
 ###############
@@ -206,35 +220,19 @@ if ($picFileExists && $notFoundOnly) {
         if ($currentFolder == 'items') {
             foreach ($data as $item) {
                 $name = $item['name'];
-                if(preg_match('/^data\-card.*/', $name)){
+                if (preg_match('/^data\-card.*/', $name)) {
                     $handleRow('none', '.png', $item['name']);
                     continue;
                 }
-                if(preg_match('/^tm[\d]{1,3}$/', $name)){
+                if (preg_match('/^tm[\d]{1,3}$/', $name)) {
                     $handleRow('tm-normal', '.png', $item['name']);
                     continue;
                 }
-                if(preg_match('/^hm[\d]{1,3}$/', $name)){
+                if (preg_match('/^hm[\d]{1,3}$/', $name)) {
                     $handleRow('hm-normal', '.png', $item['name']);
                     continue;
                 }
                 $handleRow($item['name'], '.png');
-            }
-        } elseif (in_array($currentFolder, ['pokemon/icons-left', 'pokemon/icons-right'])) {
-            foreach ($data as $pokemon) {
-                $id    = $pokemon['id'];
-                $alias = sprintf('%04d', $id);
-                $handleRow($alias, '.png');
-                foreach ($pokemon['forms'] as $form) {
-                    $formParts = explode('-', $form, 2);
-                    $formAlias = $alias . '-' . array_pop($formParts);
-                    if ($form == $pokemon['default_form']) {
-                        // Default forms share the same sprites as the species
-                        $handleRow($alias, '.png', $formAlias);
-                        continue;
-                    }
-                    $handleRow($formAlias, '.png');
-                }
             }
         } else {
             foreach ($data as $pokemon) {
@@ -242,7 +240,7 @@ if ($picFileExists && $notFoundOnly) {
                 foreach ($pokemon['forms'] as $form) {
                     if ($form == $pokemon['default_form']) {
                         // Default forms share the same sprites as the species
-                        $handleRow($pokemon['species'], '.gif', $form);
+                        $handleRow($pokemon['species'], null, $form);
                         continue;
                     }
                     $handleRow($form);
