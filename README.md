@@ -1,4 +1,4 @@
-# pokeimg
+# pokecss-media
 
 Compilation of images of all 6th+ Geneneration Pokémon 3D sprites, icons and items.
 
@@ -63,7 +63,7 @@ The graphics from the games and their names are
 
 Everything else, including all code and custom graphics (glyphs),
 is copyrighted and licensed under the 
-[MIT license](https://github.com/metaunicorn/pokeimg/LICENSE).
+[MIT license](https://github.com/metaunicorn/pokecss-media/LICENSE).
 
 ### Disclaimer
 
@@ -81,4 +81,4 @@ This software is not affiliated in any way with Nintendo,
 Pokémon or any other game company.
 
 A complete revision history of this software is available from
-https://github.com/metaunicorn/pokeimg
+https://github.com/metaunicorn/pokecss-media
