@@ -1,5 +1,7 @@
 # pokecss-media
 
+**NOTE:** This is a fork of a now removed respository.
+
 Compilation of images of all 6th+ Geneneration Pokémon 3D sprites, icons and items.
 
 The aim of this project is to compile a set of graphics from the main series games,
@@ -16,18 +18,8 @@ The naming if the sprites is consistent with the Pokémon codenames of the
  [PokeData](https://github.com/metaunicorn/pokedata) project database, so they are
  easily referentiable.
 
-
-**IMPORTANT**:
-
-1. All sprites prior to Gen 6 that are not based on 3D models,
-official artworks, or sprites from spin-off games won't be included in this project.
-Please don't ask to add them.
-2. Do not hotlink the images from your website to this Github repository, otherwise
-the possible high bandwidth can cause the elimination of this repository.
-3. When using the sprites in your website, you may want to consider using the non-animated
-ones, because their size are considerably small: all of them are just 6MB compared to the 200MB
-of the animated ones.
-
+**Do not hotlink the images from your website to this Github repository, otherwise
+the possible high bandwidth can cause the elimination of this repository.**
 
 ## TO-DO
 
@@ -42,6 +34,9 @@ of the animated ones.
 Any help to gather these missing animated sprites will be welcome.
 
 ## Credits
+
+Thanks to [metaunicorn](https://github.com/metaunicorn) for originally putting this repository together.
+
 All sprites are compiled from these websites.
 
 * pkparaiso.com, for the 3D animated sprites
@@ -54,7 +49,6 @@ for most of the missing items and for some nice ideas
 * serebii.net, for some missing items
 
 Thanks to all of them for being a good resource.
-
 
 ## License
 
@@ -81,4 +75,4 @@ This software is not affiliated in any way with Nintendo,
 Pokémon or any other game company.
 
 A complete revision history of this software is available from
-https://github.com/metaunicorn/pokecss-media
+https://github.com/tdmalone/pokecss-media
