@@ -57,7 +57,7 @@ The graphics from the games and their names are
 
 Everything else, including all code and custom graphics (glyphs),
 is copyrighted and licensed under the 
-[MIT license](https://github.com/tdmalone/pokecss-media/LICENSE).
+[MIT license](https://github.com/tdmalone/pokecss-media/blob/master/LICENSE).
 
 ### Disclaimer
 
